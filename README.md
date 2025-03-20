@@ -1,16 +1,17 @@
 # cppComposition
 
 A composition-based library/framework for C++.
+Simply `#include CompSys.hpp` to use it
 
 ## Overview
 This system provides a lightweight alternative to traditional inheritance, leveraging component-based design with bitmask-based component lookup.
 
-## Relevant Keywords
+## Relevant Keywords, you won't need anything else
 - **`Comp`** - Base class for all components. All components must inherit from `Comp`.
-- **`SETBIT`** - Required in all components. Assigns a unique bit in the bitmap used for component lookup.
-- **`incl(...)`** - Declares which components are included in a struct, these must be the same as the components a struct inherits from.
+- **`SETBIT`** - macro, Required in all components. Assigns a unique bit in the bitmap used for component lookup.
+- **`incl(...)`** - macro + generic, Declares which components are included in a struct, these must be the same as the components a struct inherits from.
 - **`InitCompSys`** - Must be called once at the beginning of `main()` or before any calls to `has()`.
-- **`has<T>(entity)`** - Checks if an entity has a component of type `T`. Returns a dynamically casted pointer if found, otherwise `nullptr`.
+- **`has<T>(entity)`** - generic, Checks if an entity has a component of type `T`. Returns a dynamically casted pointer if found, otherwise `nullptr`.
 
 ## Usage Notes
 - Do **not** create `Comp*` pointers directly; they will not function as expected.
