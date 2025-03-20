@@ -7,7 +7,7 @@ Simply `#include CompSys.hpp` to use it
 Free to use
 
 ## Overview
-This system provides a lightweight alternative to traditional inheritance, leveraging component-based design with bitmask-based component lookup.
+This system provides a lightweight alternative to traditional inheritance, leveraging component-based design with bitmask-based component lookup and dynamic casting.
 
 ## Relevant Keywords, you won't need anything else
 - **`Comp`** - Base class for all components. All components must inherit from `Comp`.
