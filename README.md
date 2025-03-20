@@ -1,7 +1,10 @@
 # cppComposition
 
 A composition-based library/framework for C++.
+
 Simply `#include CompSys.hpp` to use it
+
+Free to use
 
 ## Overview
 This system provides a lightweight alternative to traditional inheritance, leveraging component-based design with bitmask-based component lookup.
