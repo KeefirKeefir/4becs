@@ -26,6 +26,7 @@ using namespace std;
 
 // declare a component with Comp and COMP
 struct Mob : Comp {
+    // COMP macro to set it as a component in the system
     COMP;
     u8 name[100];
 };
@@ -38,6 +39,7 @@ struct Hp : Comp {
 // declare an entity with Ent and incl(...)
 struct Dog : Ent {
     Dog() {
+        // incl(...) macro to include components
         incl(Mob, Hp);
     }
 };
