@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <memory>
+#include <iostream>
+#include <typeinfo>
 
 // RELEVANT KEYWORDS,
 // the first four are mandatory to properly set up this system, 
@@ -71,7 +73,9 @@ struct Comp {
 // compares the given object's mask and the given component's type's BIT
 template <typename C>
 C* has(Comp* ptr) {
+
     std::vector<uint64_t> bits = ptr->mask();
+
     if ((bits[C::b.idx] & C::b.bit) != 0) {
         return dynamic_cast<C*>(ptr);
     }

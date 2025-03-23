@@ -1,4 +1,6 @@
-# cppComposition
+# cppComposition/dyncast_speed_wrapper
+
+Makes dynamic_cast more efficient by only casting if the cast is guaranteed to succeed.
 
 A composition-based library/framework for C++.
 
@@ -7,7 +9,9 @@ Simply `#include CompSys.hpp` to use it
 Free to use
 
 ## Overview
-This system provides a lightweight alternative to traditional inheritance, leveraging component-based design with bitmask-based component lookup and dynamic casting. Basically all it does is skipping a dynamic cast if it's guaranteed to fail, a dynamic cast wrapper.
+Leverages a component-based design with bitmask-based component lookup and dynamic casting in case of a successful lookup. Basically all it does is skipping a dynamic cast if it's guaranteed to fail, a dynamic cast wrapper.
+
+The benefit is that the developer only needs to know 5 keywords and when to use them.
 
 ## Relevant Keywords, you won't need anything else
 - **`Comp`** - Base class for all components. All components must inherit from `Comp`.
