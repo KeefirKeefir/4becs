@@ -72,7 +72,7 @@ struct Ent {
         if (!compMask) {
             return false;
         }
-        if ((compMap[C::b & 0xFFFF] & (C::b & 0xFFFFFFFFFFFF0000)) != 0) {
+        if ((compMask[C::b & 0xFFFF] & (C::b & 0xFFFFFFFFFFFF0000)) != 0) {
             return true;
         }
         return false;
