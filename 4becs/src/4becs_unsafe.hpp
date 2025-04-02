@@ -1,3 +1,5 @@
+// 4becs Entity Component System, less safe version
+
 #pragma once
 
 #include <iostream>
