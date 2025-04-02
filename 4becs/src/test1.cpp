@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 struct Hp : Comp {
     COMP;
     f64 hp = 100.0;
@@ -26,4 +25,6 @@ int main() {
     if (auto* hp = get<Hp>(dog)) {
         cout << hp->hp;
     }
+
+    delete dog;
 }
