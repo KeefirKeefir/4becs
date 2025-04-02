@@ -20,9 +20,6 @@
 // Ent - entity baseclass
 // incl(...) - takes in Comp derived structs and adds them to the Ent
 // must be in the constructor
-// FREECOMPS - macro which frees all of an Ent's components
-// must be in the destructor of each Ent with components
-// is in Ent's destructor
 
 // Functions
 
@@ -32,11 +29,8 @@
 
 // NOTES
 
-// REMEMBER TO USE ALL OF THE RELEVANT KEYWORDS OR YOU'LL LEAK MEMORY
-// ESPECIALLY FREECOMPS
+// Remember to use all of the relevant keywords
 // all components should be declared in the global scope, aka before main() runs
-
-
 
 
 // the amount of bits used to store the index
