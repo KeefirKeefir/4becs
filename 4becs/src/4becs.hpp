@@ -79,7 +79,9 @@ namespace becs {
 
 // component baseclass
 // needed for freeing components
-struct Comp {};
+struct Comp {
+    virtual ~Comp() = default;
+};
 
 // entity base class
 struct Ent {
