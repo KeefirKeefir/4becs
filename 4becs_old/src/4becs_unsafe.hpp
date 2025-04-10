@@ -1,4 +1,5 @@
 // 4becs Entity Component System, less safe version
+// version 1.1.0
 
 #pragma once
 

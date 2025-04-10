@@ -5,22 +5,24 @@
 
 using namespace std;
 
-comp(Hp) {
+struct Hp : Comp {
+    COMP;
     f64 hp = 100.0;
+
 };
 
 struct Dog : Ent {
     string name = "Joe";
 
     Dog() {
-        addComp<Hp>(this);
+        incl(Hp);
     }
 };
 
 int main() {
     auto* dog = new Dog();
 
-    if (auto* hp = getComp<Hp>(dog)) {
+    if (auto* hp = get<Hp>(dog)) {
         cout << hp->hp;
     }
 
