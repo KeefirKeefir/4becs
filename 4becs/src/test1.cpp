@@ -54,5 +54,13 @@ int main() {
         touchable->f_Touch();
     }
 
+    remvComp<Touchable>(dog);
+    if (auto* touchable = getComp<Touchable>(dog)) {
+        touchable->f_Touch();
+    }
+    else {
+        cout << "not touchable" << endl;
+    }
+
     delete dog;
 }
