@@ -15,7 +15,7 @@
 
 // RELEVANT KEYWORDS
 
-// comp(T) - macro, declares a component struct with CompBase:Comp as the baseclass
+// COMP(T) - macro, declares a component struct with CompBase:Comp as the baseclass
 // Ent - entity baseclass
 
 // Functions
@@ -24,17 +24,17 @@
 // C* getComp<C>(Ent*) - returns a pointer to an Ent's component bases on the input type C, otherwise returns a nullptr
 // C* addComp<C>(Ent*)
 // void addComps<...>(Ent*)
+// INCL(...) - macro, shorthand for addComps<...>(this)
 // void remvComp<C>(Ent*)
 // C* overwriteComp<C>(Ent*)
+// C* recreateComp<C>(Ent*)
 // C* resetComp<C>(Ent*)
 
 // NOTES
 
 // add components in the constructor or after an object is created
 // Entities need to derive from Ent to have components
-// Components need to be declared with the comp(T) macro 
-
-
+// Components need to be declared with the COMP(T) macro 
 
 namespace becs{
     // the amount of bits used to store the index
@@ -75,11 +75,10 @@ namespace becs {
             return fullbit;
         }
     };
-
 }
 
-// comp(Typename) to create a component
-#define comp(T) struct T : becs::CompBase<T>
+// COMP(Typename) to create a component
+#define COMP(T) struct T : becs::CompBase<T>
 
 namespace becs {
     // component baseclass
@@ -95,8 +94,6 @@ namespace becs {
         inline static const becs::u64BitID BitIdentifier = becs::CompRegistry::instance().getBit();
     };
 }
-
-
 // entity base class
 struct Ent {
     becs::u64BitID* compMask = (becs::u64BitID*)(calloc(becs::MAX_IDX + 1, sizeof(becs::u64BitID)));
@@ -110,7 +107,6 @@ struct Ent {
 // returns a bool
 template <typename C>
 bool hasComp(Ent* ent) {
-    if (!ent->compMask) return false;
     return (ent->compMask[C::BitIdentifier & becs::MAX_IDX] & (C::BitIdentifier & (~becs::MAX_IDX))) != 0;
 }
 
@@ -123,6 +119,14 @@ C* getComp(Ent* ent) {
         return static_cast<C*>(ent->compMap[C::BitIdentifier].get());
     }
     return nullptr;
+}
+
+// like getComp but doesn't check if the Comp exists
+// will insert a nullptr into the map if the Comp doesn't exist (bad for memory)
+// don't use this if you don't know what you're doing, the performance gain is minimal
+template <typename C>
+C* getComp_raw(Ent* ent) {
+    return static_cast<C*>(ent->compMap[C::BitIdentifier].get());
 }
 
 // adds a component if the Ent doesn't already have it
@@ -150,11 +154,20 @@ void remvComp(Ent* ent) {
     ent->compMap.erase(C::BitIdentifier);
 }
 
-// overwrite/recreate a component
+// overwrite an existing component
 // returns a pointer to the new Comp or a nullptr if the Comp didn't exist
 template <typename C>
 C* overwriteComp(Ent* ent) {
     if (!hasComp<C>(ent)) return nullptr;
+    ent->compMap[C::BitIdentifier] = std::make_unique<C>();
+    return static_cast<C*>(ent->compMap[C::BitIdentifier].get());
+}
+
+// recreate a component or add it if it doesn't already exist
+// unlike overwriteComp, this will create a component nomatter what
+// returns a pointer to the new component
+template <typename C>
+C* recreateComp(Ent* ent) {
     ent->compMap[C::BitIdentifier] = std::make_unique<C>();
     return static_cast<C*>(ent->compMap[C::BitIdentifier].get());
 }
@@ -171,4 +184,4 @@ C* resetComp(Ent* ent) {
 
 // shorthand for addComps<...>(this)
 // use in constructors
-#define incl(...) addComps<__VA_ARGS__>(this)
+#define INCL(...) addComps<__VA_ARGS__>(this)
